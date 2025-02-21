@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:medi_bot/auth/AddUser.dart';
 
 import 'SignIn.dart';
 
@@ -179,10 +181,14 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
                             if (errorMessage == null) {
                               showSnackBar(context, "Account created successfully!", color: Colors.green);
-                              Navigator.pushReplacement(
-                                context,
-                                MaterialPageRoute(builder: (context) => LoginPage()),
-                              );
+                                AddUser(email!, username!, password!).addUser();
+                                showSnackBar(context, "Account created successfully!", color: Colors.green);
+                                Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => LoginPage()),
+                                );
+
                             } else {
                               showSnackBar(context, errorMessage);
                             }
@@ -256,3 +262,4 @@ Future<String?> createUserWithEmailAndPassword(String emailAddress, String passw
     return 'Unexpected error: $e';
   }
 }
+

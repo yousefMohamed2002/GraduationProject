@@ -50,19 +50,19 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyCAplB9-YUTilx0a-P4NnjFp1p1MRbPOH8',
-    appId: '1:1045775985145:android:e429c11c0b9f66c55e3528',
-    messagingSenderId: '1045775985145',
-    projectId: 'graduationproject-864d7',
-    storageBucket: 'graduationproject-864d7.firebasestorage.app',
+    apiKey: 'AIzaSyBSsKZ1che6UecSA8rf57QajzCiHzEEIZI',
+    appId: '1:424420576619:android:41b622778c902c09a9902e',
+    messagingSenderId: '424420576619',
+    projectId: 'graduation-60c9f',
+    storageBucket: 'graduation-60c9f.firebasestorage.app',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyDukeNabh8P-yJJfzwt6o5SqLxoLy_paew',
-    appId: '1:1045775985145:ios:74b061fc307ca8875e3528',
-    messagingSenderId: '1045775985145',
-    projectId: 'graduationproject-864d7',
-    storageBucket: 'graduationproject-864d7.firebasestorage.app',
+    apiKey: 'AIzaSyAn69XyEcRiT7N5RfDu9j3_ihgaulwa8OY',
+    appId: '1:424420576619:ios:3c92fd6463452c44a9902e',
+    messagingSenderId: '424420576619',
+    projectId: 'graduation-60c9f',
+    storageBucket: 'graduation-60c9f.firebasestorage.app',
     iosBundleId: 'com.example.mediBot',
   );
 }

@@ -1,13 +1,13 @@
 {
   "project_info": {
-    "project_number": "1045775985145",
-    "project_id": "graduationproject-864d7",
-    "storage_bucket": "graduationproject-864d7.firebasestorage.app"
+    "project_number": "424420576619",
+    "project_id": "graduation-60c9f",
+    "storage_bucket": "graduation-60c9f.firebasestorage.app"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:1045775985145:android:e429c11c0b9f66c55e3528",
+        "mobilesdk_app_id": "1:424420576619:android:41b622778c902c09a9902e",
         "android_client_info": {
           "package_name": "com.example.medi_bot"
         }
@@ -15,7 +15,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyCAplB9-YUTilx0a-P4NnjFp1p1MRbPOH8"
+          "current_key": "AIzaSyBSsKZ1che6UecSA8rf57QajzCiHzEEIZI"
         }
       ],
       "services": {
