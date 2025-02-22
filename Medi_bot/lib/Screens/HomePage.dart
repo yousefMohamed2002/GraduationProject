@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import '../Bottom_Bar/custom_bottom_nav_bar.dart'; // Ensure this import is correct
 
 class Homepage extends StatefulWidget {
   @override
@@ -11,6 +12,8 @@ class _HomepageState extends State<Homepage> {
   CollectionReference usersref = FirebaseFirestore.instance.collection("Users");
   List users = [];
   String userName = "Loading ....";
+  bool isLoading = true; // Added loading state
+  String errorMessage = ''; // Added error message state
 
   @override
   void initState() {
@@ -36,20 +39,14 @@ class _HomepageState extends State<Homepage> {
             style: TextStyle(
               fontWeight: FontWeight.bold,
               color: Colors.black,
-              fontSize: 25
+              fontSize: 25,
             ),
           ),
         ),
       ),
-      body: Column(
-        children: [
-          Row(
-            children: [
-              
-            ],
-          )
-        ],
-      ),
+
+
+      bottomNavigationBar: CustomBottomNavBar(selectedIndex: 2), // Added bottom navigation bar
     );
   }
 
@@ -61,6 +58,7 @@ class _HomepageState extends State<Homepage> {
 
       setState(() {
         users = respondBody.docs.map((doc) => doc.data() as Map<String, dynamic>).toList();
+        isLoading = false; // Data loaded, stop loading
       });
 
       for (var user in users) {
@@ -74,7 +72,8 @@ class _HomepageState extends State<Homepage> {
       }
     } catch (e) {
       setState(() {
-        userName = 'Error fetching data';
+        isLoading = false; // Stop loading on error
+        errorMessage = 'Error fetching data: $e'; // Set error message
       });
       print("Error: $e");
     }
