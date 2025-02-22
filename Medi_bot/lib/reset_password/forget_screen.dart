@@ -1,4 +1,7 @@
+// Yousef Yasser
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:medi_bot/reset_password/CheakMailPage.dart';
 import 'package:medi_bot/reset_password/verifi_screen.dart';
 
 import '../auth/SignIn.dart';
@@ -60,9 +63,11 @@ class ForgotPasswordScreen extends StatelessWidget {
                 ),
                 const SizedBox(height: 20),
                 ElevatedButton(
-                  onPressed: () {
+                  onPressed: () async {
                     if (_formKey.currentState!.validate()) {
-                      Navigator.push(context, MaterialPageRoute(builder: (_) => VerificationScreen()));
+                      await FirebaseAuth.instance
+                          .sendPasswordResetEmail(email: emailController.text);
+                      Navigator.push(context, MaterialPageRoute(builder: (_) => CheckMailPage()));
                     }
                   },
                   style: ElevatedButton.styleFrom(

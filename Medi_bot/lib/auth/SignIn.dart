@@ -1,6 +1,7 @@
+//Yousef Yasser Gui & Yousef Mohamed firebase integration
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import '../HomePage.dart';
+import '../Screens/HomePage.dart';
 import '../reset_password/forget_screen.dart';
 import 'SignUp.dart';
 
@@ -30,6 +31,7 @@ class _LoginScreenState extends State<LoginScreen> {
   bool _isLoading = false;
 
   Future<void> _login() async {
+    User? user = FirebaseAuth.instance.currentUser;
     if (_formKey.currentState!.validate()) {
       setState(() => _isLoading = true);
       String? result = await signInWithEmailAndPassword(
@@ -38,22 +40,33 @@ class _LoginScreenState extends State<LoginScreen> {
       );
       setState(() => _isLoading = false);
 
-      if (result == null) {
+      if (result == null && user!.emailVerified ) {
         if (!mounted) return;
         Navigator.pushReplacement(
           context,
-          MaterialPageRoute(builder: (context) =>  Homepage()),
+          MaterialPageRoute(builder: (context) => Homepage()),
         );
       } else {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text("Email Or Password Is Incorrect , Please Cheak it "),
-            backgroundColor: Colors.redAccent,
-            duration: const Duration(seconds: 3),
-          ),
-        );
+        if(user!.emailVerified==false){
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(
+                  "Email Is Not Verified , Please Cheak it "),
+              backgroundColor: Colors.redAccent));
+        }
+        else {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(
+                  "Email Or Password Is Incorrect , Please Cheak it "),
+              backgroundColor: Colors.redAccent,
+              duration: const Duration(seconds: 3),
+            ),
+          );
+        }
       }
     }
+
   }
 
   @override
@@ -209,3 +222,4 @@ Future<String?> signInWithEmailAndPassword(String email, String password) async 
     return 'An unexpected error occurred.';
   }
 }
+
