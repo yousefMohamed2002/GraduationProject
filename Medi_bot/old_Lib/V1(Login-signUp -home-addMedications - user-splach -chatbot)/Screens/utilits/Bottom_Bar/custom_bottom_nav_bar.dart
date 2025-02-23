@@ -120,12 +120,11 @@ class CustomBottomNavBar extends StatelessWidget {
 
 
 import 'package:flutter/material.dart';
-import '../../CalendarScreen.dart';
-import '../../ChatBotScreen.dart';
-import '../../HomePage.dart';
-import '../../profile_screen.dart';
-import '../../setting_screen.dart';
-
+import 'package:medi_bot/Screens/CalendarScreen.dart';
+import 'package:medi_bot/Screens/ChatBotScreen.dart';
+import 'package:medi_bot/Screens/HomePage.dart';
+import 'package:medi_bot/Screens/profile_screen.dart';
+import 'package:medi_bot/Screens/setting_screen.dart';
 
 
 class CustomBottomNavBar extends StatelessWidget {

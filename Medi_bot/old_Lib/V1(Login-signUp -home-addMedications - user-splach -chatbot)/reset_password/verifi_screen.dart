@@ -40,9 +40,10 @@ class _VerificationScreenState extends State<VerificationScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
       appBar: AppBar(leading: const BackButton(), backgroundColor: Colors.white),
-      body: Padding(
+      body: Container(
+        color: Colors.white,
+        child: Padding(
           padding: const EdgeInsets.all(20),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -109,7 +110,7 @@ class _VerificationScreenState extends State<VerificationScreen> {
             ],
           ),
         ),
-
+      ),
     );
   }
 }

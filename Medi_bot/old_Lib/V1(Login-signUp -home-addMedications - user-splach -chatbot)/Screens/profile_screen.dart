@@ -1,4 +1,4 @@
-//youssef yasser
+
 /*
 import 'package:flutter/material.dart';
 import '../Bottom_Bar/custom_bottom_nav_bar.dart';
@@ -119,7 +119,6 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   }
 }
 */
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import '../Screens/utilits/Bottom_Bar/custom_bottom_nav_bar.dart';
 import '../auth/SignIn.dart';
@@ -263,13 +262,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       width: double.infinity,
       height: 50,
       child: ElevatedButton(
-        onPressed: () async {
-          await FirebaseAuth.instance.signOut();
-          Navigator.of(context).pushAndRemoveUntil(
-            MaterialPageRoute(builder: (context) => LoginPage()),
-                (route) => false,
-          );
-
+        onPressed: () {
+          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LoginPage()));
         },
         style: ElevatedButton.styleFrom(
           backgroundColor: Colors.red,

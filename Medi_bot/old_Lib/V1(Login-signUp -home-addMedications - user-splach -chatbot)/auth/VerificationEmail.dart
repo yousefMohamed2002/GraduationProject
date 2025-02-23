@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-
-import 'SignIn.dart';
-
+import 'package:medi_bot/auth/SignIn.dart';
 
 class VerificationEmail extends StatefulWidget {
   const VerificationEmail({super.key});

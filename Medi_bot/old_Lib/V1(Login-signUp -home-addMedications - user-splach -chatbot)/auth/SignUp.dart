@@ -276,11 +276,11 @@
 //
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:medi_bot/auth/AddUser.dart';
+import 'package:medi_bot/auth/VerificationEmail.dart';
 
-import 'AddUser.dart';
 import 'SignIn.dart';
-import 'VerificationEmail.dart';
-
 
 void main() {
   runApp(const SignUpPage());

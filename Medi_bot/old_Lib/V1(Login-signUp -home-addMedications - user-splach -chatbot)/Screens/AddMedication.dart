@@ -1,9 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:medi_bot/Screens/utilits/AddMedicationsToFireatore.dart';
 import 'package:medi_bot/Screens/utilits/BuildDropDownList.dart';
-
-
+import 'package:medi_bot/Screens/utilits/AddMedicationsToFireatore.dart';
 
 class AddMedication extends StatefulWidget {
   const AddMedication({super.key});

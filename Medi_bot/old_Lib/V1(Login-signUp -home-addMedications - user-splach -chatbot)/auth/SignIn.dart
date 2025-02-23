@@ -254,7 +254,6 @@ class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
-
   bool _isLoading = false;
 
   Future<void> _login() async {
@@ -294,12 +293,6 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    bool _isPasswordVisible = false;
-    void _togglePasswordVisibility() {
-      setState(() {
-        _isPasswordVisible = !_isPasswordVisible;
-      });
-    }
 
     return Scaffold(
       backgroundColor: const Color.fromRGBO(32, 33, 100, 1),
@@ -380,15 +373,8 @@ class _LoginScreenState extends State<LoginScreen> {
                         validator: (value) => value == null || value.isEmpty
                             ? 'Please enter your password'
                             : null,
-                        obscureText: !_isPasswordVisible,
+                        obscureText: true,
                         decoration: InputDecoration(
-                          suffixIcon: IconButton(
-                            icon: Icon(
-                              _isPasswordVisible ? Icons.visibility : Icons.visibility_off,
-                              color: Colors.black54,
-                            ),
-                            onPressed: _togglePasswordVisibility,
-                          ),
                           labelText: "Password",
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(10),
@@ -401,7 +387,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       Align(
                         alignment: Alignment.centerRight,
                         child: TextButton(
-                          onPressed: () => Navigator.pushReplacement(
+                          onPressed: () => Navigator.push(
                             context,
                             MaterialPageRoute(
                               builder: (_) =>  ForgotPasswordScreen(),

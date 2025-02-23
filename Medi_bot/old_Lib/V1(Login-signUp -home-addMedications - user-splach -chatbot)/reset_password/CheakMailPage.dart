@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-
-import '../auth/SignIn.dart';
-
+import 'package:medi_bot/auth/SignIn.dart';
 
 class CheckMailPage extends StatefulWidget {
   const CheckMailPage({super.key});

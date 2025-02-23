@@ -1,10 +1,10 @@
 // Yousef Yasser
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-
+import 'package:medi_bot/reset_password/CheakMailPage.dart';
+import 'package:medi_bot/reset_password/verifi_screen.dart';
 
 import '../auth/SignIn.dart';
-import 'CheakMailPage.dart';
 
 void main() {
   runApp(const MediBotApp());
@@ -29,8 +29,9 @@ class ForgotPasswordScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
-      body: Padding(
+      body: Container(
+        color: Colors.white,
+        child: Padding(
           padding: const EdgeInsets.all(20),
           child: Form(
             key: _formKey,
@@ -106,7 +107,7 @@ class ForgotPasswordScreen extends StatelessWidget {
             ),
           ),
         ),
-
+      ),
     );
   }
 }

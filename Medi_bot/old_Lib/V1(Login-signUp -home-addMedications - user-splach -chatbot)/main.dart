@@ -1,9 +1,10 @@
 //Yousef Yasser && Youssef Mohamed firebase
-
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:medi_bot/Screens//splash_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'Screens/splash_screen.dart';
+import 'package:medi_bot/Screens/AddMedication.dart';
+import 'package:medi_bot/Screens/ChatBotScreen.dart';
 import 'firebase_options.dart';
 
 Future<void> main() async {
@@ -14,30 +15,12 @@ Future<void> main() async {
   runApp(const MediBotApp()); // Run the app after Firebase is ready
 }
 
-class MediBotApp extends StatefulWidget {
+class MediBotApp extends StatelessWidget {
   const MediBotApp({super.key});
 
   @override
-  State<MediBotApp> createState() => _MediBotAppState();
-}
-
-class _MediBotAppState extends State<MediBotApp> {
-  @override
-  void initState() {
-    FirebaseAuth.instance
-        .authStateChanges()
-        .listen((User? user) {
-      if (user == null) {
-        print('User is currently signed out!');
-      } else {
-        print('User is signed in!');
-      }
-    });
-    super.initState();
-  }
-  @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: SplashScreen(),
     );

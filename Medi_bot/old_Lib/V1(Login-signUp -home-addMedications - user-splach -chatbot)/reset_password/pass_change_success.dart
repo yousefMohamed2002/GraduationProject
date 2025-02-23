@@ -7,8 +7,9 @@ class PasswordChangedScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
-      body: Padding(
+      body: Container(
+        color: Colors.white,
+        child: Padding(
           padding: EdgeInsets.all(20),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -31,7 +32,7 @@ class PasswordChangedScreen extends StatelessWidget {
             ],
           ),
         ),
-
+      ),
     );
   }
 }

@@ -3,11 +3,13 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-import 'package:medi_bot/Screens/AddMedication.dart';
-import 'package:medi_bot/Screens/Blood.dart';
-import 'package:medi_bot/Screens/Heart.dart';
-import 'package:medi_bot/Screens/Prescription.dart';
-import 'package:medi_bot/Screens/utilits/Bottom_Bar/custom_bottom_nav_bar.dart';
+import '../Screens/utilits/Bottom_Bar/custom_bottom_nav_bar.dart';
+import 'AddMedication.dart';
+import 'Blood.dart';
+import 'Heart.dart';
+import 'Prescription.dart';
+
+
 
 class Homepage extends StatefulWidget {
   @override
@@ -30,98 +32,102 @@ class _HomepageState extends State<Homepage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: ListTile(
-          title: Text(
-            "Hello !!",
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-              color: Colors.black,
-              fontSize: 20,
-            ),
-          ),
-          subtitle: Text(
-            userName,
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-              color: Colors.black,
-              fontSize: 25,
-            ),
-          ),
-        ),
-      ),
+      backgroundColor: Colors.white,
       body: SingleChildScrollView(
         padding: EdgeInsets.all(16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            SizedBox(height: 20),
-            TextField(
-              decoration: InputDecoration(
-                hintText: "Search medicines",
-                prefixIcon: Icon(Icons.search),
-                filled: true,
-                fillColor: Colors.grey[200],
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10),
-                  borderSide: BorderSide.none,
-                ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox(height: 20),
+              Text("Welcome,",style: TextStyle(
+                fontWeight: FontWeight.bold,
+                color: Colors.black,
+                fontSize: 20,
+              )
+              ),
+            Text(
+              userName,
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                color: Colors.black,
+                fontSize: 25,
               ),
             ),
-            SizedBox(height: 20),
-
-            /// Appointments & Doctor Section
-            Row(
-              children: [
-                Expanded(
-                  child: GestureDetector(
-                    onTap: _navigateToAppointments,
-                    child: Container(
-                      height: 150,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        image: DecorationImage(
-                          image: AssetImage('images/Appointment_png_flutter.png'),
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-                    ),
+              SizedBox(height: 20),
+              TextField(
+                decoration: InputDecoration(
+                  hintText: "Search medicines",
+                  prefixIcon: Icon(Icons.search),
+                  filled: true,
+                  fillColor: Colors.grey[200],
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
+                    borderSide: BorderSide.none,
                   ),
                 ),
-                SizedBox(width: 10),
-                Expanded(
-                  child: GestureDetector(
-                    onTap: _navigateToDoctor,
-                    child: Container(
-                      height: 150,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        image: DecorationImage(
-                          image: AssetImage('images/doctor_png_flutter.png'),
-                          fit: BoxFit.cover,
+              ),
+              SizedBox(height: 20),
+
+              /// Appointments & Doctor Section
+              Row(
+                children: [
+                  Flexible(
+                    child: GestureDetector(
+                      onTap: _navigateToAppointments,
+                      child: AspectRatio(
+                          aspectRatio: 3/2,
+                        child: Container(
+                          height: 150,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            image: DecorationImage(
+                              image: AssetImage('images/Appointment_png_flutter.png'),
+                              fit: BoxFit.cover,
+                            ),
+                          ),
                         ),
-                      ),
+                      )
                     ),
                   ),
-                ),
-              ],
-            ),
-            SizedBox(height: 20),
+                  SizedBox(width: 10),
+                  Flexible(
+                    child: GestureDetector(
+                      onTap: _navigateToDoctor,
+                      child: AspectRatio(
+                          aspectRatio: 3/2,
+                        child: Container(
+                          height: 150,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            image: DecorationImage(
+                              image: AssetImage('images/doctor_png_flutter.png'),
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                        ),
 
-            /// Actions Section
-            Text("Actions", style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500)),
-            SizedBox(height: 10),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                _buildAction(context, Icons.favorite, "Heart", _navigateToHeart),
-                _buildAction(context, Icons.medication, "Medicine", _navigateToMedicine),
-                _buildAction(context, Icons.bloodtype, "Blood", _navigateToBlood),
-                _buildAction(context, Icons.receipt, "Prescription", _navigateToPrescription),
-              ],
-            ),
-          ],
-        ),
+                      )
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(height: 20),
+
+              /// Actions Section
+              Text("Actions", style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500)),
+              SizedBox(height: 10),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  _buildAction(context, Icons.favorite, "Heart Rate", _navigateToHeart),
+                  _buildAction(context, Icons.medication, "Medicine", _navigateToMedicine),
+                  _buildAction(context, Icons.bloodtype, "Blood Pressure", _navigateToBlood),
+                  _buildAction(context, Icons.receipt, "Blood Sugar", _navigateToPrescription),
+                ],
+              ),
+            ],
+          ),
+
       ),
       bottomNavigationBar: CustomBottomNavBar(selectedIndex: 2),
     );

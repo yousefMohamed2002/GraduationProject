@@ -2,7 +2,6 @@
 import 'package:flutter/material.dart';
 import 'package:medi_bot/reset_password/pass_change_success.dart';
 
-
 class CreateNewPasswordScreen extends StatefulWidget {
   @override
   _CreateNewPasswordScreenState createState() => _CreateNewPasswordScreenState();
@@ -43,10 +42,10 @@ class _CreateNewPasswordScreenState extends State<CreateNewPasswordScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
       appBar: AppBar(leading:  BackButton(), backgroundColor: Colors.white),
-      body:
-        Padding(
+      body: Container(
+        color: Colors.white,
+        child: Padding(
           padding: const EdgeInsets.all(20),
           child: Form(
             key: _formKey,
@@ -100,7 +99,7 @@ class _CreateNewPasswordScreenState extends State<CreateNewPasswordScreen> {
             ),
           ),
         ),
-
+      ),
     );
   }
 }
