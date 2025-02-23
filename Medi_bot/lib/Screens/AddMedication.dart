@@ -1,4 +1,7 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:medi_bot/Screens/utilits/BuildDropDownList.dart';
+import 'package:medi_bot/Screens/utilits/AddMedicationsToFireatore.dart';
 
 class AddMedication extends StatefulWidget {
   const AddMedication({super.key});
@@ -12,71 +15,12 @@ class _AddMedicationState extends State<AddMedication> {
   String? selectedType;
   String? selectedDose;
   String? selectedAmount;
-  TextEditingController dateController = TextEditingController();
+  TextEditingController dateTimeController = TextEditingController();
 
   final List<String> medicines = ['Vitamin D', 'Vitamin C', 'Paracetamol'];
   final List<String> types = ['Tablet', 'Capsule', 'Liquid'];
   final List<String> doses = ['500mg', '1000mg', '1500mg'];
   final List<String> amounts = ['1', '2', '3', '4'];
-
-  Future<void> _selectDate(BuildContext context) async {
-    final DateTime? picked = await showDatePicker(
-      context: context,
-      initialDate: DateTime.now(),
-      firstDate: DateTime(2000),
-      lastDate: DateTime(2101),
-    );
-    if (picked != null) {
-      setState(() {
-        dateController.text = "${picked.toLocal()}".split(' ')[0];
-      });
-    }
-  }
-
-  Widget buildDropdown({
-    required String label,
-    required String? value,
-    required List<String> items,
-    required ValueChanged<String?> onChanged,
-  }) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          "$label* ",
-          style: const TextStyle(
-            fontWeight: FontWeight.bold,
-            color: Colors.black,
-            fontSize: 20,
-          ),
-        ),
-        const SizedBox(height: 10),
-        Container(
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(13),
-            border: Border.all(width: 1.5, color: const Color(0xFF196EB0)),
-          ),
-          width: 400,
-          height: 70,
-          child: DropdownButtonFormField<String>(
-            value: value,
-            onChanged: onChanged,
-            items: items.map((String item) {
-              return DropdownMenuItem<String>(
-                value: item,
-                child: Text(item),
-              );
-            }).toList(),
-            decoration: const InputDecoration(
-              border: InputBorder.none,
-              contentPadding: EdgeInsets.symmetric(horizontal: 10),
-            ),
-          ),
-        ),
-        const SizedBox(height: 20),
-      ],
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -151,7 +95,7 @@ class _AddMedicationState extends State<AddMedication> {
             Row(
               children: const [
                 Text(
-                  "Date* ",
+                  "Date & Time* ",
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     color: Colors.black,
@@ -162,7 +106,7 @@ class _AddMedicationState extends State<AddMedication> {
             ),
             const SizedBox(height: 10),
             GestureDetector(
-              onTap: () => _selectDate(context),
+              onTap: () => _selectDateTime(context),
               child: Container(
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
@@ -172,12 +116,12 @@ class _AddMedicationState extends State<AddMedication> {
                 height: 70,
                 child: AbsorbPointer(
                   child: TextFormField(
-                    controller: dateController,
+                    controller: dateTimeController,
                     decoration: const InputDecoration(
                       prefixIcon: Icon(Icons.calendar_month),
                       border: InputBorder.none,
                       contentPadding: EdgeInsets.symmetric(horizontal: 10),
-                      hintText: "Select Date",
+                      hintText: "Select Date & Time",
                     ),
                   ),
                 ),
@@ -185,9 +129,7 @@ class _AddMedicationState extends State<AddMedication> {
             ),
             const SizedBox(height: 30),
             ElevatedButton(
-              onPressed: () {
-                // Save logic here
-              },
+              onPressed: _saveMedication,
               style: ButtonStyle(
                 backgroundColor: MaterialStateProperty.all(const Color(0xFF196EB0)),
                 minimumSize: MaterialStateProperty.all(const Size(200, 50)),
@@ -203,5 +145,69 @@ class _AddMedicationState extends State<AddMedication> {
         ),
       ),
     );
+  }
+  void _saveMedication() {
+    if (selectedMedicine == null ||
+        selectedType == null ||
+        selectedDose == null ||
+        selectedAmount == null ||
+        dateTimeController.text.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Please fill all fields'),
+          backgroundColor: Colors.red,
+        ),
+      );
+      return;
+    }
+    else{
+      final addMedicationsToFirestore = AddMedicationsToFirestore(email: FirebaseAuth.instance.currentUser!.email!, selectedMedicine: selectedMedicine!, selectedType: selectedType!, selectedDose: selectedDose!, selectedAmount: selectedAmount!, dateTimeController: dateTimeController);
+      addMedicationsToFirestore.addMedicationsToDatabase();
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Medication added successfully'),
+          backgroundColor: Colors.green,
+        ),
+      );
+
+      setState(() {
+        selectedMedicine = null;
+        selectedType = null;
+        selectedDose = null;
+        selectedAmount = null;
+        dateTimeController.clear();
+      });
+
+    }
+
+
+  }
+  Future<void> _selectDateTime(BuildContext context) async {
+    final DateTime? pickedDate = await showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime(2000),
+      lastDate: DateTime(2101),
+    );
+
+    if (pickedDate != null) {
+      final TimeOfDay? pickedTime = await showTimePicker(
+        context: context,
+        initialTime: TimeOfDay.now(),
+      );
+
+      if (pickedTime != null) {
+        final DateTime combinedDateTime = DateTime(
+          pickedDate.year,
+          pickedDate.month,
+          pickedDate.day,
+          pickedTime.hour,
+          pickedTime.minute,
+        );
+        setState(() {
+          dateTimeController.text = combinedDateTime.toString();
+        });
+      }
+    }
   }
 }
