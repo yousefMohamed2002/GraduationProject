@@ -2,11 +2,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:medi_bot/Bottom_Bar/custom_bottom_nav_bar.dart';
+
 import 'package:medi_bot/Screens/AddMedication.dart';
 import 'package:medi_bot/Screens/Blood.dart';
 import 'package:medi_bot/Screens/Heart.dart';
 import 'package:medi_bot/Screens/Prescription.dart';
+import 'package:medi_bot/Screens/utilits/Bottom_Bar/custom_bottom_nav_bar.dart';
 
 class Homepage extends StatefulWidget {
   @override

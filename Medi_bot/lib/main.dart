@@ -21,7 +21,7 @@ class MediBotApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return const MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: AddMedication(),
+      home: SplashScreen(),
     );
   }
 }

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../Bottom_Bar/custom_bottom_nav_bar.dart';
+import '../Screens/utilits/Bottom_Bar/custom_bottom_nav_bar.dart';
 
 class ChatBotScreen extends StatefulWidget {
   const ChatBotScreen({super.key});
