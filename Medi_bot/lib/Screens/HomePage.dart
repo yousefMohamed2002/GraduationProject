@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:medi_bot/Screens/AddAppointment.dart';
+import 'package:medi_bot/Screens/AddDoctor.dart';
 
 import '../Screens/utilits/Bottom_Bar/custom_bottom_nav_bar.dart';
 import 'AddMedication.dart';
@@ -124,6 +125,7 @@ class _HomepageState extends State<Homepage> {
                   _buildAction(context, Icons.medication, "Medicine", _navigateToMedicine),
                   _buildAction(context, Icons.bloodtype, "Blood Pressure", _navigateToBlood),
                   _buildAction(context, Icons.receipt, "Blood Sugar", _navigateToPrescription),
+                  _buildAction(context, Icons.person, "Doctor", _navigateToDoctorSmallButton),
                 ],
               ),
             ],
@@ -195,7 +197,7 @@ class _HomepageState extends State<Homepage> {
 
   /// 🩸 Blood Screen Navigation
   void _navigateToBlood() {
-    Navigator.push(context, MaterialPageRoute(builder: (context) => Blood(),));
+    Navigator.push(context, MaterialPageRoute(builder: (context) => AddBloodPressurePage(),));
   }
 
   /// 📝 Prescription Screen Navigation
@@ -207,6 +209,10 @@ class _HomepageState extends State<Homepage> {
   void _navigateToAppointments() {
     Navigator.push(context, MaterialPageRoute(builder: (context) => Addappointment(),));
   }
+  void _navigateToDoctorSmallButton() {
+    Navigator.push(context, MaterialPageRoute(builder: (context) => AddDoctor(),));
+  }
+
 
   /// 🩺 Doctor Navigation
   void _navigateToDoctor() {

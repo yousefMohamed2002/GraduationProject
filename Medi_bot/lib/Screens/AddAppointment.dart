@@ -182,8 +182,8 @@ class _AddappointmentState extends State<Addappointment> {
       return;
     }
     else{
-      final addMedicationsToFirestore = AddAppoinmetToFirestore(email: FirebaseAuth.instance.currentUser!.email!,selectedDoctor:selectedDoctor,isOn: isOn, dateTimeController: dateTimeController );
-      addMedicationsToFirestore.addMedicationsToDatabase();
+      final addAppointmentToFirestore = AddAppoinmetToFirestore(email: FirebaseAuth.instance.currentUser!.email!,selectedDoctor:selectedDoctor,isOn: isOn, dateTimeController: dateTimeController );
+      addAppointmentToFirestore.addAppointmentToDatabase();
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
           content: Text('Appointment added successfully'),

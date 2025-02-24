@@ -1,39 +1,38 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 
-class AddAppoinmetToFirestore {
+class AddDoctorToFirestore {
   final String? email;
   final String? selectedDoctor;
-  final TextEditingController dateTimeController;
-  bool isOn;
+  final String? Type;
+  final String? Note;
 
-  AddAppoinmetToFirestore({
+
+
+
+  AddDoctorToFirestore({
     required this.email,
     required this.selectedDoctor,
-    required this.dateTimeController,
-    required this.isOn
+    required this.Type,
+    required this.Note,
   });
 
   // Method to add medication to Firestore
-  Future<bool> addAppointmentToDatabase() async {
-    if (dateTimeController.text.isEmpty) {
-      print("DateTime is empty");
-      return false;
-    }
+  Future<bool> addDoctorToDatabase() async {
 
     try {
       // Validate DateTime format
-      final dateTime = DateTime.parse(dateTimeController.text);
+
 
       CollectionReference medications =
-      FirebaseFirestore.instance.collection('Appointment');
+      FirebaseFirestore.instance.collection('Doctors');
       await medications.add({
         'Email': email,
         'Doctor': selectedDoctor,
-        'dateTime': Timestamp.fromDate(dateTime),
-        'Alarm':isOn
+        'Type': Type,
+        'Note':Note,
       });
-      print("Appointment Added");
+      print("Doctor Added");
       return true; // Success
     } on FormatException {
       print("Invalid DateTime format");
