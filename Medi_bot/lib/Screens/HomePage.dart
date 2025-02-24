@@ -2,6 +2,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:medi_bot/Screens/AddAppointment.dart';
 
 import '../Screens/utilits/Bottom_Bar/custom_bottom_nav_bar.dart';
 import 'AddMedication.dart';
@@ -204,12 +205,7 @@ class _HomepageState extends State<Homepage> {
 
   /// 📅 Appointments Navigation
   void _navigateToAppointments() {
-    Navigator.push(context, MaterialPageRoute(builder: (_) {
-      return Scaffold(
-        appBar: AppBar(title: Text("Appointments")),
-        body: Center(child: Text("Appointments Screen", style: TextStyle(fontSize: 24))),
-      );
-    }));
+    Navigator.push(context, MaterialPageRoute(builder: (context) => Addappointment(),));
   }
 
   /// 🩺 Doctor Navigation

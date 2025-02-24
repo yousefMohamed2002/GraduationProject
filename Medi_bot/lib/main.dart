@@ -3,6 +3,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:medi_bot/Screens/AddAppointment.dart';
+import 'package:medi_bot/Screens/AddMedication.dart';
 import 'Screens/splash_screen.dart';
 import 'firebase_options.dart';
 

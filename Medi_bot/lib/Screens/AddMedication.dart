@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:medi_bot/Screens/utilits/AddMedicationsToFireatore.dart';
 import 'package:medi_bot/Screens/utilits/BuildDropDownList.dart';
+import 'package:medi_bot/Screens/utilits/SelectedDateController.dart';
 
 
 
@@ -17,12 +18,14 @@ class _AddMedicationState extends State<AddMedication> {
   String? selectedType;
   String? selectedDose;
   String? selectedAmount;
+  bool isOn=false;
   TextEditingController dateTimeController = TextEditingController();
 
   final List<String> medicines = ['Vitamin D', 'Vitamin C', 'Paracetamol'];
   final List<String> types = ['Tablet', 'Capsule', 'Liquid'];
   final List<String> doses = ['500mg', '1000mg', '1500mg'];
   final List<String> amounts = ['1', '2', '3', '4'];
+
 
   @override
   Widget build(BuildContext context) {
@@ -108,7 +111,7 @@ class _AddMedicationState extends State<AddMedication> {
             ),
             const SizedBox(height: 10),
             GestureDetector(
-              onTap: () => _selectDateTime(context),
+              onTap: () => selectDateTime(context,dateTimeController),
               child: Container(
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
@@ -130,6 +133,31 @@ class _AddMedicationState extends State<AddMedication> {
               ),
             ),
             const SizedBox(height: 30),
+            Container(
+              padding: EdgeInsets.all(10),
+              decoration: BoxDecoration(borderRadius: BorderRadius.circular(15),color: Colors.black12),
+              width: double.infinity,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text("Turn On Alarm",style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 20,
+                  ),)
+                  ,Switch(
+                    value: isOn,
+                    activeColor: Colors.blue,
+                    onChanged: (value) {
+                      setState(() {
+                        isOn = value;
+                        // Handle dark mode toggle logic
+                      });
+                    },
+                  ),
+                ],
+              ),
+            ),
+            SizedBox(height: 10,),
             ElevatedButton(
               onPressed: _saveMedication,
               style: ButtonStyle(
@@ -163,7 +191,7 @@ class _AddMedicationState extends State<AddMedication> {
       return;
     }
     else{
-      final addMedicationsToFirestore = AddMedicationsToFirestore(email: FirebaseAuth.instance.currentUser!.email!, selectedMedicine: selectedMedicine!, selectedType: selectedType!, selectedDose: selectedDose!, selectedAmount: selectedAmount!, dateTimeController: dateTimeController);
+      final addMedicationsToFirestore = AddMedicationsToFirestore(email: FirebaseAuth.instance.currentUser!.email!, selectedMedicine: selectedMedicine!, selectedType: selectedType!, selectedDose: selectedDose!, selectedAmount: selectedAmount!, dateTimeController: dateTimeController, isOn: isOn,);
       addMedicationsToFirestore.addMedicationsToDatabase();
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
@@ -178,38 +206,11 @@ class _AddMedicationState extends State<AddMedication> {
         selectedDose = null;
         selectedAmount = null;
         dateTimeController.clear();
+        isOn=false;
       });
 
     }
 
 
-  }
-  Future<void> _selectDateTime(BuildContext context) async {
-    final DateTime? pickedDate = await showDatePicker(
-      context: context,
-      initialDate: DateTime.now(),
-      firstDate: DateTime(2000),
-      lastDate: DateTime(2101),
-    );
-
-    if (pickedDate != null) {
-      final TimeOfDay? pickedTime = await showTimePicker(
-        context: context,
-        initialTime: TimeOfDay.now(),
-      );
-
-      if (pickedTime != null) {
-        final DateTime combinedDateTime = DateTime(
-          pickedDate.year,
-          pickedDate.month,
-          pickedDate.day,
-          pickedTime.hour,
-          pickedTime.minute,
-        );
-        setState(() {
-          dateTimeController.text = combinedDateTime.toString();
-        });
-      }
-    }
   }
 }
